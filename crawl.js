@@ -7,11 +7,24 @@ function getURLsFromHTML(htmlBody, baseURL) {
     for (const link of links) {
         if (link.href.slice(0, 1) === '/') {
             // relative
-            urls.push(`${baseURL}${link.href}`);
+            try {
+                const urlObj = new URL(`${baseURL}${link.href}`);
+                urls.push(urlObj.href);
+            }
+            catch (err) {
+                console.log(err.message);
+            }
+
         }
         else {
             // absolute
-            urls.push(link.href);
+            try {
+                const urlObj = new URL(link.href);
+                urls.push(urlObj.href);
+            }
+            catch (err) {
+                console.log(err.message);
+            }
         }
     }
     return urls;

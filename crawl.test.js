@@ -79,3 +79,19 @@ test('get urls from html multiple', () => {
     const expected = ['https://blog.boot.dev/path1/', 'https://blog.boot.dev/path2/'];
     expect(actual).toEqual(expected);
 });
+
+test('get urls from html invalid', () => {
+    const inputHtmlBody = `
+    <html>
+        <body>
+            <a href="invalid" >
+                Boot dev path1
+            </a>
+        </body>
+    </html>
+    `;
+    const inputBaseUrl = 'https://blog.boot.dev';
+    const actual = getURLsFromHTML(inputHtmlBody, inputBaseUrl);
+    const expected = [];
+    expect(actual).toEqual(expected);
+});
